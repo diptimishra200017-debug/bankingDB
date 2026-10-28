@@ -19,6 +19,14 @@ Create table Customers(
  
 Alter table customers
 ADD AccountCreationDate Date;
+
+alter table customers
+ADD DateOfBirth date;
+
+alter table customers
+modify phone varchar(20);
+
+desc customers;
  
 create table Accounts(
   
@@ -70,4 +78,53 @@ ADD LoanID int;
 ALTER TABLE loans
 MODIFY COLUMN loanID INT AUTO_INCREMENT PRIMARY KEY FIRST;  
 desc Loans;  
-   
+ 
+ alter table accounts
+ ADD constraint chk_Balance
+ check (Balance>=1000);
+ 
+desc accounts;
+
+drop table accountbraches;
+
+Alter table accounts
+ADD customerID int;
+desc accounts;
+
+Alter table accounts
+ADD constraint FK_Accounts_Customers
+foreign key (CustomerID)
+references customers(CustomerID);
+
+Alter table customers
+modify Firstname varchar(50) NOT NULL;
+desc customers;
+ Alter table customers
+ Add constraint uk_email unique (Email);
+ 
+ Alter table customers
+ alter column lastname set default "NA";
+
+Alter table accounts
+ADD BranchID int;
+desc accounts; 
+ Alter table accounts
+ADD constraint FK_Accounts_Branches
+foreign key (BranchID)
+references branches(BranchID);
+
+Alter table transactions
+ADD AccountID int;
+desc transactions; 
+ Alter table transactions
+ADD constraint FK_Transactions_Accounts
+foreign key (AccountID)
+references accounts(AccountID);
+
+Alter table loans
+ADD CustomerID int;
+desc Loans; 
+ Alter table Loans
+ADD constraint FK_Loans_Customer
+foreign key (CustomerID)
+references customers(CustomerID);
